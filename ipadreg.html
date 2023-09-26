@@ -69,14 +69,7 @@
                     <input type="date" id="dob" name="dob" required>
                 </div>
                 <div class="right">
-                    <label for="notificationType">Preferred Notification Method:*</label>
-                    <select name="notificationType" id="notificationType" required onchange="toggleNotificationDetail()">
-                        <option value="">--Select One--</option>
-                        <option value="email">Email</option>
-                        <option value="text">Text</option>
-                    </select>
-                    <label for="notificationDetail">Enter Email/Phone Number:*</label>
-                    <input type="text" id="notificationDetail" name="notificationDetail" required placeholder="Enter your email or phone number">
+                    
                       <label for="streetAddress">Street Address:*</label>
             <input type="text" id="streetAddress" name="streetAddress" required>
             <label for="city">City:*</label>
@@ -85,6 +78,14 @@
             <input type="text" id="state" name="state" required>
             <label for="zipCode">ZIP Code:*</label>
             <input type="text" id="zipCode" name="zipCode" required>
+                    <label for="notificationType">Preferred Notification Method:*</label>
+                    <select name="notificationType" id="notificationType" required onchange="toggleNotificationDetail()">
+                        <option value="">--Select One--</option>
+                        <option value="email">Email</option>
+                        <option value="text">Text</option>
+                    </select>
+                    <label for="notificationDetail">Enter Email/Phone Number:*</label>
+                    <input type="text" id="notificationDetail" name="notificationDetail" required placeholder="Enter your email or phone number">
                 </div>
             </div>
             <button type="submit">Submit</button>
