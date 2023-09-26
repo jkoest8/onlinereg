@@ -23,7 +23,7 @@ label, input, button {
 }
 
 input {
-    width: calc(50% - 22px);
+    width: calc(100% - 22px);
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
