@@ -11,7 +11,7 @@ function checkZipCode() {
     if (selcoZipCodes.includes(zipCode)) {
         resultDiv.innerHTML = "Your ZIP Code is in SELCO, and you qualify for a digital card! (The patron would then finish the online form.)<br><br>";
         let barcode = generateUniqueBarcode();
-        resultDiv.innerHTML += `Thank you for registering for a digital card.<br><br>Your barcode is: ${barcode}`,<br><br> 'Patron could then be emailed their scannable barcode.";
+        resultDiv.innerHTML += `Thank you for registering for a digital card.<br><br>Your barcode is: ${barcode} <br><br> If you would like to check out physical items from Rochester Public Library, stop in with photo ID and proof of address to upgrade your card! <br><br> Patron could then be emailed their scannable barcode.';
         
         // Generate the visual barcode here.
         JsBarcode("#barcode", barcode, {
