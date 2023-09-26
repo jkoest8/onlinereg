@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration Form</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        #container {
+            width: 50%;
+            margin: auto;
+        }
+        #header {
+            background: #50b3a2;
+            color: #ffffff;
+            padding: 20px;
+            border-bottom: #bbb 1px solid;
+        }
+        #header h1 {
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+        #formContainer {
+            margin: 30px 0;
+            padding: 20px;
+            background: #ffffff;
+            border: 1px solid #e3e3e3;
+            border-radius: 5px;
+        }
+        #formContainer label,
+        #formContainer input,
+        #formContainer select,
+        #formContainer button {
+            display: block;
+            margin-bottom: 20px;
+        }
+        #formContainer button {
+            background: #50b3a2;
+            color: #ffffff;
+            cursor: pointer;
+            padding: 10px;
+        }
+        #formContainer button:hover {
+            background: #439881;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="header">
+            <h1>Registration Form</h1>
+        </div>
+        <div id="formContainer">
+            <form>
+                <label for="firstName">First Name: <span style="color: red;">*</span></label>
+                <input type="text" id="firstName" name="firstName" required>
+                
+                <label for="middleName">Middle Name:</label>
+                <input type="text" id="middleName" name="middleName">
+                
+                <label for="lastName">Last Name: <span style="color: red;">*</span></label>
+                <input type="text" id="lastName" name="lastName" required>
+                
+                <label for="preferredName">Preferred Name:</label>
+                <input type="text" id="preferredName" name="preferredName">
+                
+                <label for="dobMonth">Date of Birth: <span style="color: red;">*</span></label>
+                <select id="dobMonth" name="dobMonth" required>
+                    <option value="">Month</option>
+                    <!-- List other months here -->
+                </select>
+                <select id="dobDate" name="dobDate" required>
+                    <option value="">Date</option>
+                    <!-- List dates here -->
+                </select>
+                <select id="dobYear" name="dobYear" required>
+                    <option value="">Year</option>
+                    <!-- List years here -->
+                </select>
+
+                <label for="email">Your E-mail: <span style="color: red;">*</span></label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="phone">Phone Number:</label>
+                <input type="tel" id="phone" name="phone">
+                
+                <label for="pin">Create a PIN: <span style="color: red;">*</span></label>
+                <input type="password" id="pin" name="pin" required>
+                
+                <button type="submit">Register</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
