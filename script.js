@@ -22,7 +22,7 @@ function checkZipCode() {
             displayValue: true,
         });
     } else {
-        resultDiv.textContent = "ZIP Code is not in SELCO. Please stop in at the Rochester Public Library to register for a physical or digital card.";
+        resultDiv.innerHTML = "ZIP Code is not in SELCO. Please stop in at the Rochester Public Library to register for a physical or digital card.";
         document.getElementById('barcode').innerHTML = ''; // Clear the previous barcode if exists
     }
 }
