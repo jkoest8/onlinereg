@@ -3,9 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <title>Qualified for a Digital Card</title>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.0/dist/JsBarcode.all.min.js"></script>
 </head>
 <body>
     <h1>Congratulations! You are qualified for a digital card.</h1>
-    <!-- You can add more details and style as per your requirement -->
+    <div id="result"></div>
+    <svg id="barcode"></svg>
+    <script>
+        // Extract barcode from URL
+        let params = new URLSearchParams(window.location.search);
+        let barcode = params.get('barcode');
+
+        if(barcode) {
+            // Set result div content and generate barcode
+            let resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = "Thank you for registering for a digital card.<br><br>Your barcode is: " + barcode
+            + "<br><br> If you would like to check out physical items from Rochester Public Library, stop in with photo ID and proof of address to upgrade your card!"
+            + "<br><br> Patron could then be emailed their scannable barcode.";
+            
+            // Generate the visual barcode here.
+            JsBarcode("#barcode", barcode, {
+                format: "CODE128",
+                lineColor: "#000",
+                width: 2,
+                height: 40,
+                displayValue: true,
+            });
+        }
+    </script>
 </body>
 </html>
