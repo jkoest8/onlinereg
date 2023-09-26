@@ -5,22 +5,86 @@
     <title>ZIP Code Checker</title>
     <link rel="stylesheet" href="style.css">
     <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
         #container {
+            width: 50%;
+            margin: auto;
+        }
+        #header {
+            background: #50b3a2;
+            color: #ffffff;
             text-align: center;
-            padding: 20px;
+            padding-top: 30px;
+            min-height: 70px;
+            border-bottom: #bbb 1px solid;
+        }
+        #header h1 {
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+        #header p {
+            margin-bottom: 15px;
+        }
+        #header ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        #header ul li {
+            margin-bottom: 5px;
         }
         #formContainer {
+            margin: 30px 0;
+            padding: 20px;
+            background: #ffffff;
+            border: 1px solid #e3e3e3;
+            border-radius: 5px;
+        }
+        #formContainer label,
+        #formContainer input,
+        #formContainer button {
+            display: block;
             margin-bottom: 20px;
         }
-        #result {
-            margin-top: 20px;
+        #formContainer button {
+            background: #50b3a2;
+            color: #ffffff;
+            cursor: pointer;
             padding: 10px;
-            border: 1px solid #ccc;
+        }
+        #formContainer button:hover {
+            background: #439881;
+        }
+        #result {
+            padding: 20px;
+            background: #ffffff;
+            border: 1px solid #e3e3e3;
+            border-radius: 5px;
+        }
+        #barcode {
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
     <div id="container">
+        <div id="header">
+            <h1>Library eCard Application</h1>
+            <p>All fields are required unless marked as optional.</p>
+            <p>Those who live within the SELCO area can apply online to get an eCard. If you already have a library card registered with Rochester Public Library, you can continue to use it and do not need to apply for an e-card.</p>
+            <p>Rochester Public Library eCards:</p>
+            <ul>
+                <li>Provide full access to the library’s online resources, including eBooks and other downloads.</li>
+                <li>Allow you to check out items from RPL's BookBoxes.</li>
+                <li>Do not allow you to place holds or check out physical materials.</li>
+            </ul>
+            <p>You can get a library card with full borrowing privileges by stopping in at the Rochester Public Library and speaking with someone at the Public Service Desk.</p>
+        </div>
         <div id="formContainer">
             <label for="zipCode">Enter ZIP Code:</label>
             <input type="text" id="zipCode" name="zipCode" required>
