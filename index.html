@@ -2,21 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>SELCO Zip Code Checker</title>
-    <link rel="stylesheet" type="text/css" href="style.css" />
+    <title>SELCO ZIP Code Checker</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="container">
-        <div id="formContainer">
-            <label for="zipCode">Enter Zip Code:</label>
-            <input type="text" id="zipCode" name="zipCode">
-            <button onclick="checkZipCode()">Check</button>
-        </div>
-        <div id="result"></div>
-    </div>
-    <script src="script.js"></script>
+    <form id="zipForm">
+        <label for="zipInput">Enter ZIP Code:</label>
+        <input type="text" id="zipInput">
+        <button type="button" id="checkButton">Check ZIP Code</button>
+    </form>
+    <svg id="barcode"></svg> <!-- Barcode will be displayed here -->
     <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.0/dist/JsBarcode.all.min.js"></script>
-    <svg id="barcode"></svg>
-
+    <script src="script.js"></script>
 </body>
 </html>
