@@ -39,6 +39,7 @@
     </header>
     <div id="result"></div>
     <svg id="barcode"></svg>
+     <p class="note">Note: The actual code could generate a unique barcode starting with 110180 and make sure it hasn't been used before. However, it may not be a bad idea to have the eCard numbers have a slightly different format, like: 11018X... or something like that.</p>
     <script>
         let params = new URLSearchParams(window.location.search);
         let barcode = params.get('barcode');
