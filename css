@@ -1,0 +1,12 @@
+#container {
+    width: 50%;
+    margin: auto;
+}
+
+#formContainer {
+    margin-bottom: 20px;
+}
+
+#result {
+    font-weight: bold;
+}
