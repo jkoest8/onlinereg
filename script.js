@@ -9,9 +9,9 @@ function checkZipCode() {
     let resultDiv = document.getElementById('result');
 
     if (selcoZipCodes.includes(zipCode)) {
-        resultDiv.textContent = "ZIP Code is in SELCO.";
+        resultDiv.innerHTML = "Your ZIP Code is in SELCO, and you qualify for a digital card! (The patron would then finish the online form.)"<br><br>;
         let barcode = generateUniqueBarcode();
-        resultDiv.textContent += `Your barcode is: ${barcode}`;
+        resultDiv.innerHTML += `Thank you for registering for a digital card.<br><br>Your barcode is: ${barcode}`;
         
         // Generate the visual barcode here.
         JsBarcode("#barcode", barcode, {
@@ -22,7 +22,7 @@ function checkZipCode() {
             displayValue: true,
         });
     } else {
-        resultDiv.textContent = "ZIP Code is not in SELCO.";
+        resultDiv.textContent = "ZIP Code is not in SELCO. Please stop in at the Rochester Public Library to register for a physical or digital card.";
         document.getElementById('barcode').innerHTML = ''; // Clear the previous barcode if exists
     }
 }
