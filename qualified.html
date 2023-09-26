@@ -4,24 +4,50 @@
     <meta charset="UTF-8">
     <title>Qualified for a Digital Card</title>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.0/dist/JsBarcode.all.min.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        header {
+            background-color: #50b3a2;
+            color: #ffffff;
+            text-align: center;
+            padding: 1em;
+        }
+        #result {
+            width: 60%;
+            margin: 2em auto;
+            padding: 1em;
+            background: #fff;
+            border: 1px solid #e4e4e4;
+            box-shadow: 2px 2px 12px 0px #b1b1b1;
+        }
+        svg {
+            display: block;
+            margin: 20px auto;
+        }
+    </style>
 </head>
 <body>
-    <h1>Congratulations! You are qualified for a digital card.</h1>
+    <header>
+        <h1>Congratulations! You are qualified for a digital card.</h1><br><br>
+        <h2><i>Patron would then fill out the registration form...</i></h2><br><br><br>
+    </header>
     <div id="result"></div>
     <svg id="barcode"></svg>
     <script>
-        // Extract barcode from URL
         let params = new URLSearchParams(window.location.search);
         let barcode = params.get('barcode');
-
         if(barcode) {
-            // Set result div content and generate barcode
             let resultDiv = document.getElementById('result');
             resultDiv.innerHTML = "Thank you for registering for a digital card.<br><br>Your barcode is: " + barcode
             + "<br><br> If you would like to check out physical items from Rochester Public Library, stop in with photo ID and proof of address to upgrade your card!"
             + "<br><br> Patron could then be emailed their scannable barcode.";
-            
-            // Generate the visual barcode here.
+
             JsBarcode("#barcode", barcode, {
                 format: "CODE128",
                 lineColor: "#000",
