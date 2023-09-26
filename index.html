@@ -2,34 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>ZIP Code Checker</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Image Map</title>
     <style>
-        #container {
-            text-align: center;
-            padding: 20px;
-        }
-        #formContainer {
-            margin-bottom: 20px;
-        }
-        #result {
-            margin-top: 20px;
-            padding: 10px;
-            border: 1px solid #ccc;
+        area:hover {
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
-    <div id="container">
-        <div id="formContainer">
-            <label for="zipCode">Enter ZIP Code:</label>
-            <input type="text" id="zipCode" name="zipCode" required>
-            <button onclick="checkZipCode()">Check ZIP Code</button>
-        </div>
-        <div id="result"></div>
-        <svg id="barcode"></svg>
-    </div>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.0/dist/JsBarcode.all.min.js"></script>
-    <script src="script.js"></script>
+    <img src="I PREFER A DIGITAL CARD.png" alt="Digital Card Preference" usemap="#imageMap" width="924" height="458">
+
+    <map name="imageMap">
+        <area shape="rect" coords="616,229,924,458" href="zipCodeChecker.html" alt="Clickable Area">
+    </map>
 </body>
 </html>
