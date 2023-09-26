@@ -11,7 +11,7 @@ function checkZipCode() {
     if (selcoZipCodes.includes(zipCode)) {
         resultDiv.innerHTML = "Your ZIP Code is in SELCO and you qualify for a digital card!"
         + "<br><br>Digital cards can only be used to access RPL's online resources and to check out items from RPL's BookBoxes."
-        + "<br><br>If the patron finish the online form, then:<br><br>";
+        + "<br><br>If the patron finishes the online form, then:<br><br>";
     let barcode = generateUniqueBarcode();
         resultDiv.innerHTML += "Thank you for registering for a digital card.<br><br>Your barcode is: ${barcode}"
         + "<br><br> If you would like to check out physical items from Rochester Public Library, stop in with photo ID and proof of address to upgrade your card!"
