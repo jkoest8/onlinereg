@@ -18,9 +18,7 @@
         #header {
             background: #50b3a2;
             color: #ffffff;
-            text-align: center;
-            padding-top: 30px;
-            min-height: 70px;
+            padding: 20px;
             border-bottom: #bbb 1px solid;
         }
         #header h1 {
@@ -33,7 +31,8 @@
         #header ul {
             margin: 0;
             padding: 0;
-            list-style: none;
+            list-style: square;
+            padding-left: 20px;
         }
         #header ul li {
             margin-bottom: 5px;
@@ -74,7 +73,7 @@
 <body>
     <div id="container">
         <div id="header">
-            <h1>Rochester Public Library eCard Application</h1>
+            <h1>Library eCard Application</h1>
             <p>All fields are required unless marked as optional.</p>
             <p>Those who live within the SELCO area can apply online to get an eCard. If you already have a library card registered with Rochester Public Library, you can continue to use it and do not need to apply for an e-card.</p>
             <p>Rochester Public Library eCards:</p>
@@ -86,7 +85,7 @@
             <p>You can get a library card with full borrowing privileges by stopping in at the Rochester Public Library and speaking with someone at the Public Service Desk.</p>
         </div>
         <div id="formContainer">
-            <label for="zipCode">Enter ZIP Code:</label>
+            <label for="zipCode">Enter ZIP Code to Check Eligibility:</label>
             <input type="text" id="zipCode" name="zipCode" required>
             <button onclick="checkZipCode()">Check ZIP Code</button>
         </div>
