@@ -9,7 +9,7 @@ function checkZipCode() {
     let resultDiv = document.getElementById('result');
 
     if (selcoZipCodes.includes(zipCode)) {
-        resultDiv.innerHTML = "Your ZIP Code is in SELCO, and you qualify for a digital card! (The patron would then finish the online form.)"<br><br>;
+        resultDiv.innerHTML = "Your ZIP Code is in SELCO, and you qualify for a digital card! (The patron would then finish the online form.)<br><br>";
         let barcode = generateUniqueBarcode();
         resultDiv.innerHTML += `Thank you for registering for a digital card.<br><br>Your barcode is: ${barcode}`;
         
@@ -26,6 +26,7 @@ function checkZipCode() {
         document.getElementById('barcode').innerHTML = ''; // Clear the previous barcode if exists
     }
 }
+
 
 let generatedCodes = [];
 
