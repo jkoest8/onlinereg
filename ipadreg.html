@@ -13,87 +13,83 @@
         #container {
             width: 50%;
             margin: auto;
-        }
-        #header {
-            background: #50b3a2;
-            color: #ffffff;
-            padding: 20px;
-            border-bottom: #bbb 1px solid;
-        }
-        #header h1 {
-            text-transform: uppercase;
-            margin-bottom: 15px;
-        }
-        #formContainer {
-            margin: 30px 0;
-            padding: 20px;
             background: #ffffff;
-            border: 1px solid #e3e3e3;
+            padding: 20px;
             border-radius: 5px;
+            box-shadow: 0 0 10px 0 rgba(0,0,0,0.1);
         }
-        #formContainer label,
-        #formContainer input,
-        #formContainer select,
-        #formContainer button {
+        .form-section {
+            display: flex;
+            justify-content: space-between;
+        }
+        .left, .right {
+            width: 48%; /* Slightly less than 50% to leave room for the gap in the middle */
+        }
+        label, input, select {
             display: block;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
-        #formContainer button {
-            background: #50b3a2;
-            color: #ffffff;
-            cursor: pointer;
+        button {
             padding: 10px;
+            background-color: #50b3a2;
+            color: white;
+            cursor: pointer;
+            border: none;
         }
-        #formContainer button:hover {
-            background: #439881;
+        button:hover {
+            background-color: #439881;
         }
     </style>
 </head>
 <body>
     <div id="container">
-        <div id="header">
-            <h1>Registration Form</h1>
-        </div>
-        <div id="formContainer">
-            <form>
-                <label for="firstName">First Name: <span style="color: red;">*</span></label>
-                <input type="text" id="firstName" name="firstName" required>
-                
-                <label for="middleName">Middle Name:</label>
-                <input type="text" id="middleName" name="middleName">
-                
-                <label for="lastName">Last Name: <span style="color: red;">*</span></label>
-                <input type="text" id="lastName" name="lastName" required>
-                
-                <label for="preferredName">Preferred Name:</label>
-                <input type="text" id="preferredName" name="preferredName">
-                
-                <label for="dobMonth">Date of Birth: <span style="color: red;">*</span></label>
-                <select id="dobMonth" name="dobMonth" required>
-                    <option value="">Month</option>
-                    <!-- List other months here -->
-                </select>
-                <select id="dobDate" name="dobDate" required>
-                    <option value="">Date</option>
-                    <!-- List dates here -->
-                </select>
-                <select id="dobYear" name="dobYear" required>
-                    <option value="">Year</option>
-                    <!-- List years here -->
-                </select>
-
-                <label for="email">Your E-mail: <span style="color: red;">*</span></label>
-                <input type="email" id="email" name="email" required>
-
-                <label for="phone">Phone Number:</label>
-                <input type="tel" id="phone" name="phone">
-                
-                <label for="pin">Create a PIN: <span style="color: red;">*</span></label>
-                <input type="password" id="pin" name="pin" required>
-                
-                <button type="submit">Register</button>
-            </form>
-        </div>
+        <form>
+            <div class="form-section">
+                <div class="left">
+                    <label for="firstName">First Name:*</label>
+                    <input type="text" id="firstName" name="firstName" required>
+                           <label for="middleName">Middle Name: </label>
+            <input type="text" id="middleName" name="middleName">
+            
+            <label for="lastName">Last Name:* </label>
+            <input type="text" id="lastName" name="lastName" required>
+            
+            <label for="preferredName">Preferred Name: </label>
+            <input type="text" id="preferredName" name="preferredName">
+                    <label for="dob">Date of Birth:*</label>
+                    <input type="date" id="dob" name="dob" required>
+                </div>
+                <div class="right">
+                    <label for="notificationType">Preferred Notification Method:*</label>
+                    <select name="notificationType" id="notificationType" required onchange="toggleNotificationDetail()">
+                        <option value="">--Select One--</option>
+                        <option value="email">Email</option>
+                        <option value="text">Text</option>
+                    </select>
+                    <label for="notificationDetail">Enter Email/Phone Number:*</label>
+                    <input type="text" id="notificationDetail" name="notificationDetail" required placeholder="Enter your email or phone number">
+                </div>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
     </div>
+
+    <script>
+        function toggleNotificationDetail() {
+            const notificationType = document.getElementById('notificationType').value;
+            const notificationDetail = document.getElementById('notificationDetail');
+
+            if (notificationType === 'email') {
+                notificationDetail.placeholder = 'Enter your email';
+                notificationDetail.type = 'email';
+            } else if (notificationType === 'text') {
+                notificationDetail.placeholder = 'Enter your phone number';
+                notificationDetail.type = 'tel';
+            } else {
+                notificationDetail.placeholder = 'Enter your email or phone number';
+                notificationDetail.type = 'text';
+            }
+        }
+    </script>
 </body>
 </html>
