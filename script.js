@@ -9,9 +9,9 @@ function checkZipCode() {
     let resultDiv = document.getElementById('result');
 
     if (selcoZipCodes.includes(zipCode)) {
-        resultDiv.textContent = "ZIP Code is in SELCO. Generating Barcode...";
+        resultDiv.textContent = "ZIP Code is in SELCO.";
         let barcode = generateUniqueBarcode();
-        resultDiv.textContent += `Generated Barcode: ${barcode}`;
+        resultDiv.textContent += `Your barcode is: ${barcode}`;
         
         // Generate the visual barcode here.
         JsBarcode("#barcode", barcode, {
