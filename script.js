@@ -30,3 +30,11 @@ function generateUniqueBarcode() {
     generatedCodes.push(newCode);
     return newCode;
 }
+
+JsBarcode("#barcode", newCode, {
+  format: "CODE128",
+  lineColor: "#000",
+  width: 2,
+  height: 40,
+  displayValue: true,
+});
