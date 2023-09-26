@@ -6,32 +6,16 @@ let selcoZipCodes = ["56007", "55912", "55917", "55918", "55921", "55009", "5592
 
 function checkZipCode() {
     let zipCode = document.getElementById('zipCode').value;
-    let resultDiv = document.getElementById('result');
 
     if (selcoZipCodes.includes(zipCode)) {
-        resultDiv.innerHTML = "Your ZIP Code is in SELCO and you qualify for a digital card!"
-        + "<br><br>Digital cards can only be used to access RPL's online resources and to check out items from RPL's BookBoxes."
-        + "<br><br>If the patron finishes the online form, then:<br><br>";
-    let barcode = generateUniqueBarcode();
-        resultDiv.innerHTML += "Thank you for registering for a digital card.<br><br>Your barcode is: ${barcode}"
-        + "<br><br> If you would like to check out physical items from Rochester Public Library, stop in with photo ID and proof of address to upgrade your card!"
-        + "<br><br> Patron could then be emailed their scannable barcode.";
+        let barcode = generateUniqueBarcode();
         
-        // Generate the visual barcode here.
-        
-        JsBarcode("#barcode", barcode, {
-            format: "CODE128",
-            lineColor: "#000",
-            width: 2,
-            height: 40,
-            displayValue: true,
-        });
+        // Append barcode as a parameter to the URL
+        window.location.href = 'qualified.html?barcode=' + barcode; 
     } else {
-        resultDiv.innerHTML = "ZIP Code is not in SELCO. Please stop in at the Rochester Public Library to register for a physical or digital card.";
-        document.getElementById('barcode').innerHTML = ''; // Clear the previous barcode if exists
+        window.location.href = 'notQualified.html';
     }
 }
-
 
 
 let generatedCodes = [];
