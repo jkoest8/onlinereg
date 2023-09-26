@@ -4,8 +4,6 @@ let selcoZipCodes = ["56007", "55912", "55917", "55918", "55921", "55009", "5592
     "55964", "55965", "55971", "55066", "55972", "55974", "55976", "55975",
     "55981", "55985", "55987", "55992", "55901", "55902", "55903", "55904", "55905", "55906"];
 
-let generatedCodes = [];
-
 function checkZipCode() {
     let zipCode = document.getElementById('zipCode').value;
     let resultDiv = document.getElementById('result');
@@ -25,8 +23,11 @@ function checkZipCode() {
         });
     } else {
         resultDiv.textContent = "ZIP Code is not in SELCO.";
+        document.getElementById('barcode').innerHTML = ''; // Clear the previous barcode if exists
     }
 }
+
+let generatedCodes = [];
 
 function generateUniqueBarcode() {
     let prefix = "1101";
