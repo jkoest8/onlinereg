@@ -9,7 +9,7 @@ function checkZipCode() {
     let resultDiv = document.getElementById('result');
 
     if (selcoZipCodes.includes(zipCode)) {
-        resultDiv.innerHTML = "Your ZIP Code is in SELCO, and you qualify for a digital card!
+        resultDiv.innerHTML = "Your ZIP Code is in SELCO and you qualify for a digital card!
         <br><br>Digital cards can only be used to access RPL's online resources and to check out items from RPL's BookBoxes.
         <br><br>If the patron finish the online form, then:<br><br>";
         let barcode = generateUniqueBarcode();
