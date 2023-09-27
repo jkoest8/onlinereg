@@ -66,6 +66,24 @@
         #barcode, #barcode-ipad {
             margin-top: 20px;
         }
+         #linkBox {
+            width: 300px;
+            padding: 20px;
+            margin: auto;
+            text-align: center;
+            background-color: #50b3a2;
+            color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px 0px #000000;
+        }
+        #linkBox a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        #linkBox:hover {
+            background-color: #439881;
+        }
     </style>
 </head>
 <body>
@@ -103,7 +121,9 @@
         <div id="result-ipad"></div>
         <svg id="barcode-ipad"></svg>
     </div>
-    
+    <div id="linkBox">
+    <a href="famreg.html">Family Registration Experiment</a>
+    </div>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.0/dist/JsBarcode.all.min.js"></script>
     <script src="script.js"></script>
 </body>
