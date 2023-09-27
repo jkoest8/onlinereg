@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Family Registration Form</title>
+    <style>
+        #databasePreview {
+            white-space: pre;
+            font-family: 'Courier New', Courier, monospace;
+            padding: 10px;
+            background: #e3e3e3;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div class="formContainer" id="mainForm">
+            <form onsubmit="addMember(event, this)">
+                <label>First Name: <input required type="text" name="firstName"></label>
+                <label>Middle Name: <input type="text" name="middleName"></label>
+                <label>Last Name: <input required type="text" name="lastName"></label>
+                <!-- You can continue adding the necessary input fields and styling as needed -->
+                <input type="checkbox" id="addFamilyMember" name="addFamilyMember"> I also want to sign my family members up for cards.<br>
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+        <div id="additionalForms"></div>
+        <div id="databasePreview">Database Preview:<br>---------------<br></div>
+    </div>
+    <script>
+        let barcode = 43000;
+
+        function addMember(event, form) {
+            event.preventDefault();
+            let formData = new FormData(form);
+            let databasePreview = document.getElementById('databasePreview');
+            databasePreview.innerText += `Barcode: ${barcode}, First Name: ${formData.get('firstName')}, Middle Name: ${formData.get('middleName')}, Last Name: ${formData.get('lastName')}\n`;
+            barcode++;
+            
+            if(document.getElementById('addFamilyMember').checked) {
+                let clonedForm = form.cloneNode(true);
+                document.getElementById('additionalForms').appendChild(clonedForm);
+                clonedForm.onsubmit = function(e) { addMember(e, this); }
+            }
+        }
+    </script>
+</body>
+</html>
