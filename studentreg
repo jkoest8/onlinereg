@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Registration Form</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+        }
+
+        #container {
+            width: 50%;
+            margin: auto;
+        }
+
+        .formContainer {
+            background: #f9f9f9;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid #e3e3e3;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px 0px #e0e0e0;
+        }
+
+        .explanation {
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #d0d0d0;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #e3e3e3;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div class="formContainer">
+            <h2>Student Registration Form</h2>
+            <form onsubmit="addStudent(event, this)">
+                <label>First Name: <input required type="text" name="firstName"></label><br>
+                <label>Middle Name: <input type="text" name="middleName"></label><br>
+                <label>Last Name: <input required type="text" name="lastName"></label><br>
+                <p class="explanation">Preferred Name: "Is this your dead name?"</p>
+                <label>Yes<input type="radio" name="deadname" value="yes" onclick="showPreferredName()"></label>
+                <label>No<input type="radio" name="deadname" value="no" checked onclick="hidePreferredName()"></label><br>
+                <div id="preferredName" style="display:none;">
+                    <p>Please indicate the name that should appear on your account and be used for email/text notifications.</p>
+                    <label>First Name: <input type="text" name="preferredFirstName"></label><br>
+                    <label>Middle Name: <input type="text" name="preferredMiddleName"></label><br>
+                    <label>Last Name: <input type="text" name="preferredLastName"></label><br>
+                    <input type="checkbox" name="useIDName"> Please check this box if you wish to have your ID name used for print and phone notifications.<br>
+                </div>
+                <label>Teacher Name: <input required type="text" name="teacherName"></label><br>
+                <label>School: <input required type="text" name="school"></label><br>
+                <label>Grade Level: <input required type="text" name="gradeLevel"></label><br>
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+        <div id="databasePreview" style="display:none;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>First Name</th>
+                        <th>Middle Name</th>
+                        <th>Last Name</th>
+                        <th>Preferred Name</th>
+                        <th>Teacher Name</th>
+                        <th>School</th>
+                        <th>Grade Level</th>
+                    </tr>
+                </thead>
+                <tbody id="databaseBody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function showPreferredName() {
+            document.getElementById('preferredName').style.display = 'block';
+        }
+
+        function hidePreferredName() {
+            document.getElementById('preferredName').style.display = 'none';
+        }
+
+        function addStudent(event, form) {
+            event.preventDefault();
+            let formData = new FormData(form);
+            let databasePreview = document.getElementById('databasePreview');
+            let databaseBody = document.getElementById('databaseBody');
+
+            let row = document.createElement('tr');
+
+            let fields = ['firstName', 'middleName', 'lastName', 'preferredFirstName', 'teacherName', 'school', 'gradeLevel'];
+
+            fields.forEach(field => {
+                let td = document.createElement('td');
+                td.textContent = formData.get(field) || '-';
+                row.appendChild(td);
+            });
+
+            databaseBody.appendChild(row);
+            databasePreview.style.display = 'block';
+
+            form.reset();
+        }
+    </script>
+</body>
+</html>
