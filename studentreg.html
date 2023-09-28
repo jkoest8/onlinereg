@@ -10,7 +10,7 @@
         }
 
         #container {
-            width: 50%;
+            width: 70%;
             margin: auto;
         }
 
@@ -34,9 +34,29 @@
             margin-bottom: 10px;
         }
 
-        label, input {
-            display: block;
+        label, input, select {
             margin-bottom: 15px;
+        }
+
+        .inline {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .inline > div {
+            width: 45%;
+        }
+
+        .inline label {
+            display: block;
+        }
+
+        .inline input {
+            width: 100%;
+        }
+
+        .radio-label {
+            margin-right: 20px;
         }
 
         table {
@@ -64,12 +84,33 @@
         <div class="formContainer">
             <h1>Student Library Card Registration</h1>
             <form onsubmit="addStudent(event, this)">
-                <label>First Name: <input required type="text" name="firstName"></label>
-                <label>Middle Name: <input type="text" name="middleName"></label>
-                <label>Last Name: <input required type="text" name="lastName"></label>
+                <div class="inline">
+                    <div>
+                        <label>First Name: <input required type="text" name="firstName"></label>
+                        <label>Middle Name: <input type="text" name="middleName"></label>
+                        <label>Last Name: <input required type="text" name="lastName"></label>
+                        <label>Date of Birth: <input required type="date" name="dob"></label>
+                    </div>
+                    <div>
+                        <label>Parent First Name: <input required type="text" name="parentFirstName"></label>
+                        <label>Parent Middle Name: <input type="text" name="parentMiddleName"></label>
+                        <label>Parent Last Name: <input required type="text" name="parentLastName"></label>
+                    </div>
+                </div>
+                <label>Street: <input required type="text" name="street"></label>
+                <div class="inline">
+                    <div>
+                        <label>State: <input required type="text" name="state"></label>
+                    </div>
+                    <div>
+                        <label>Zip: <input required type="text" name="zip"></label>
+                    </div>
+                </div>
                 <p class="explanation">Preferred Name: "Is this your dead name?"</p>
-                <label>Yes<input type="radio" name="deadname" value="yes" onclick="showPreferredName()"></label>
-                <label>No<input type="radio" name="deadname" value="no" checked onclick="hidePreferredName()"></label>
+                <div class="inline">
+                    <label class="radio-label">Yes<input type="radio" name="deadname" value="yes" onclick="showPreferredName()"></label>
+                    <label>No<input type="radio" name="deadname" value="no" checked onclick="hidePreferredName()"></label>
+                </div>
                 <div id="preferredName" style="display:none;">
                     <p>Please indicate the name that should appear on your account and be used for email/text notifications.</p>
                     <label>First Name: <input type="text" name="preferredFirstName"></label>
@@ -86,31 +127,29 @@
                         <option value="email">Email</option>
                         <option value="text">Text Message</option>
                     </select>
-                    <label id="contactLabel">Your Email: <input required type="email" name="contact"></label>
+                    <label id="contactLabel">Email: <input required type="text" name="contact"></label>
                 </div>
                 <input type="submit" value="Submit">
             </form>
         </div>
-        <div id="databasePreview" style="display:none;">
+        <div class="formContainer" style="display:none;" id="databasePreview">
             <table>
                 <thead>
                     <tr>
-                        <th>First Name</th>
-                        <th>Middle Name</th>
-                        <th>Last Name</th>
-                        <th>Preferred Name</th>
+                        <th>Student Name</th>
+                        <th>Parent Name</th>
+                        <th>Date of Birth</th>
+                        <th>Address</th>
                         <th>Teacher Name</th>
                         <th>School</th>
                         <th>Grade Level</th>
                         <th>Contact</th>
                     </tr>
                 </thead>
-                <tbody id="databaseBody">
-                </tbody>
+                <tbody id="databaseBody"></tbody>
             </table>
         </div>
     </div>
-
     <script>
         function showPreferredName() {
             document.getElementById('preferredName').style.display = 'block';
@@ -121,12 +160,8 @@
         }
 
         function showContactField(value) {
-            const contactLabel = document.getElementById('contactLabel');
-            if(value === 'email') {
-                contactLabel.innerHTML = 'Your Email: <input required type="email" name="contact">';
-            } else {
-                contactLabel.innerHTML = 'Your Phone: <input required type="tel" name="contact">';
-            }
+            let contactLabel = document.getElementById('contactLabel');
+            contactLabel.innerHTML = `${value === 'email' ? 'Email' : 'Phone Number'}: <input required type="text" name="contact">`;
         }
 
         function addStudent(event, form) {
@@ -134,14 +169,21 @@
             let formData = new FormData(form);
             let databasePreview = document.getElementById('databasePreview');
             let databaseBody = document.getElementById('databaseBody');
-
+            
             let row = document.createElement('tr');
 
-            let fields = ['firstName', 'middleName', 'lastName', 'preferredFirstName', 'teacherName', 'school', 'gradeLevel', 'contact'];
+            let studentName = `${formData.get('firstName')} ${formData.get('middleName') || ''} ${formData.get('lastName')}`;
+            let parentName = `${formData.get('parentFirstName')} ${formData.get('parentMiddleName') || ''} ${formData.get('parentLastName')}`;
+            let dob = formData.get('dob');
+            let address = `${formData.get('street')}, ${formData.get('state')} ${formData.get('zip')}`;
+            let teacherName = formData.get('teacherName');
+            let school = formData.get('school');
+            let gradeLevel = formData.get('gradeLevel');
+            let contact = `${formData.get('contactOption') === 'email' ? 'Email' : 'Phone'}: ${formData.get('contact')}`;
 
-            fields.forEach(field => {
+            [studentName, parentName, dob, address, teacherName, school, gradeLevel, contact].forEach(field => {
                 let td = document.createElement('td');
-                td.textContent = formData.get(field) || '-';
+                td.textContent = field || '-';
                 row.appendChild(td);
             });
 
