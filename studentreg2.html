@@ -26,13 +26,21 @@
             color: #00796b;
             text-decoration: none;
         }
-        label {
+        label, select, input[type="text"], input[type="date"] {
             display: block;
             margin-bottom: 10px;
+            width: 100%;
         }
         fieldset {
             border: none;
             padding: 0;
+            padding-bottom: 10px;
+            position: relative;
+        }
+        legend {
+            font-size: 1.2em;
+            font-weight: bold;
+            padding-bottom: 10px;
         }
         .preferredName {
             display: none;
@@ -96,48 +104,52 @@
             <div class="divider"></div>
 
             <fieldset>
-                <legend>Contact</legend>
-                <label>
-                    Contact Method:*
-                    <select required name="contactMethod">
+                <legend>Contact Method</legend>
+                <label>Contact via:
+                    <select required name="contactMethod" id="contactMethod" onchange="changeContactMethodPlaceholder()">
                         <option value="email">Email</option>
                         <option value="text">Text Message</option>
                     </select>
                 </label>
-                <label>Contact Details:* <input required type="text" name="contactDetails"></label>
+                <label id="contactMethodLabel">Email:* <input required type="text" name="contactDetail" id="contactDetail" placeholder="Enter your email"></label>
             </fieldset>
 
             <div class="divider"></div>
 
             <fieldset>
-                <legend>Card Pickup</legend>
-                <label><input type="radio" required name="cardPickup" value="classVisit"> This card will be picked up during a class visit</label>
-                <label><input type="radio" name="cardPickup" value="mail"> I need this card mailed to me</label>
+                <legend>Card Pickup Method</legend>
+                <label><input required type="radio" name="pickupMethod" value="classVisit"> This card will be picked up during a class visit.</label>
+                <label><input required type="radio" name="pickupMethod" value="mail"> I need this card mailed to me.</label>
             </fieldset>
 
-            <div class="divider"></div>
+            <p class="confidentiality">This information is confidential and will only be used for library purposes.</p>
+            <p class="terms">By submitting this form, you agree to the <a href="https://www.rplmn.org/services/library-card-borrowing/privacy" target="_blank">library’s terms and conditions</a>.</p>
 
-            <input type="submit" value="Submit">
-            <input type="reset" value="Clear All">
+            <button type="submit">Submit</button>
         </form>
-
-        <div class="confidentiality">
-            Your confidentiality is our priority. We take all necessary measures to protect your personal information.
-        </div>
-        <div class="terms">
-            By submitting this form, you agree to our <a href="https://www.rplmn.org/services/library-card-borrowing/privacy" target="_blank">Privacy Policy</a>.
-        </div>
     </div>
 
     <script>
-        function togglePreferredName(show) {
-            document.getElementById('preferredNameSection').style.display = show ? 'block' : 'none';
+        function togglePreferredName(isVisible) {
+            document.getElementById('preferredNameSection').style.display = isVisible ? 'block' : 'none';
         }
 
-        document.getElementById('registrationForm').addEventListener('submit', function (e) {
+        function changeContactMethodPlaceholder() {
+            let method = document.getElementById('contactMethod').value;
+            let detail = document.getElementById('contactDetail');
+            let label = document.getElementById('contactMethodLabel');
+
+            if (method === 'email') {
+                label.innerHTML = "Email:* <input required type='text' name='contactDetail' id='contactDetail' placeholder='Enter your email'>";
+            } else {
+                label.innerHTML = "Phone Number:* <input required type='text' name='contactDetail' id='contactDetail' placeholder='Enter your phone number'>";
+            }
+        }
+
+        function submitForm(e) {
             e.preventDefault();
-            // Process the form data and update the "database" 
-        });
+            // You can process the form data and update the "database" or take other actions as needed.
+        }
     </script>
 </body>
 </html>
