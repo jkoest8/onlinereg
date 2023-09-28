@@ -6,6 +6,7 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
+            background-color: #e0f7fa;
         }
 
         #container {
@@ -14,17 +15,28 @@
         }
 
         .formContainer {
-            background: #f9f9f9;
+            background: #ffffff;
             padding: 20px;
             margin-bottom: 20px;
-            border: 1px solid #e3e3e3;
+            border: 1px solid #b2ebf2;
             border-radius: 5px;
-            box-shadow: 0px 0px 10px 0px #e0e0e0;
+            box-shadow: 0px 0px 10px 0px #80deea;
+        }
+
+        h1 {
+            color: #00796b;
+            text-align: center;
         }
 
         .explanation {
             font-size: 0.9em;
             color: #555;
+            margin-bottom: 10px;
+        }
+
+        label, input {
+            display: block;
+            margin-bottom: 15px;
         }
 
         table {
@@ -39,32 +51,43 @@
         }
 
         th {
-            background-color: #e3e3e3;
+            background-color: #b2ebf2;
         }
 
+        #contactOption {
+            margin-bottom: 15px;
+        }
     </style>
 </head>
 <body>
     <div id="container">
         <div class="formContainer">
-            <h2>Student Registration Form</h2>
+            <h1>Student Library Card Registration</h1>
             <form onsubmit="addStudent(event, this)">
-                <label>First Name: <input required type="text" name="firstName"></label><br>
-                <label>Middle Name: <input type="text" name="middleName"></label><br>
-                <label>Last Name: <input required type="text" name="lastName"></label><br>
+                <label>First Name: <input required type="text" name="firstName"></label>
+                <label>Middle Name: <input type="text" name="middleName"></label>
+                <label>Last Name: <input required type="text" name="lastName"></label>
                 <p class="explanation">Preferred Name: "Is this your dead name?"</p>
                 <label>Yes<input type="radio" name="deadname" value="yes" onclick="showPreferredName()"></label>
-                <label>No<input type="radio" name="deadname" value="no" checked onclick="hidePreferredName()"></label><br>
+                <label>No<input type="radio" name="deadname" value="no" checked onclick="hidePreferredName()"></label>
                 <div id="preferredName" style="display:none;">
                     <p>Please indicate the name that should appear on your account and be used for email/text notifications.</p>
-                    <label>First Name: <input type="text" name="preferredFirstName"></label><br>
-                    <label>Middle Name: <input type="text" name="preferredMiddleName"></label><br>
-                    <label>Last Name: <input type="text" name="preferredLastName"></label><br>
+                    <label>First Name: <input type="text" name="preferredFirstName"></label>
+                    <label>Middle Name: <input type="text" name="preferredMiddleName"></label>
+                    <label>Last Name: <input type="text" name="preferredLastName"></label>
                     <input type="checkbox" name="useIDName"> Please check this box if you wish to have your ID name used for print and phone notifications.<br>
                 </div>
-                <label>Teacher Name: <input required type="text" name="teacherName"></label><br>
-                <label>School: <input required type="text" name="school"></label><br>
-                <label>Grade Level: <input required type="text" name="gradeLevel"></label><br>
+                <label>Teacher Name: <input required type="text" name="teacherName"></label>
+                <label>School: <input required type="text" name="school"></label>
+                <label>Grade Level: <input required type="text" name="gradeLevel"></label>
+                <div id="contactOption">
+                    <label>Contact Option:</label>
+                    <select name="contactOption" onchange="showContactField(this.value)">
+                        <option value="email">Email</option>
+                        <option value="text">Text Message</option>
+                    </select>
+                    <label id="contactLabel">Your Email: <input required type="email" name="contact"></label>
+                </div>
                 <input type="submit" value="Submit">
             </form>
         </div>
@@ -79,6 +102,7 @@
                         <th>Teacher Name</th>
                         <th>School</th>
                         <th>Grade Level</th>
+                        <th>Contact</th>
                     </tr>
                 </thead>
                 <tbody id="databaseBody">
@@ -96,6 +120,15 @@
             document.getElementById('preferredName').style.display = 'none';
         }
 
+        function showContactField(value) {
+            const contactLabel = document.getElementById('contactLabel');
+            if(value === 'email') {
+                contactLabel.innerHTML = 'Your Email: <input required type="email" name="contact">';
+            } else {
+                contactLabel.innerHTML = 'Your Phone: <input required type="tel" name="contact">';
+            }
+        }
+
         function addStudent(event, form) {
             event.preventDefault();
             let formData = new FormData(form);
@@ -104,7 +137,7 @@
 
             let row = document.createElement('tr');
 
-            let fields = ['firstName', 'middleName', 'lastName', 'preferredFirstName', 'teacherName', 'school', 'gradeLevel'];
+            let fields = ['firstName', 'middleName', 'lastName', 'preferredFirstName', 'teacherName', 'school', 'gradeLevel', 'contact'];
 
             fields.forEach(field => {
                 let td = document.createElement('td');
