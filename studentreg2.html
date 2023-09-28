@@ -26,13 +26,24 @@
             color: #00796b;
             text-decoration: none;
         }
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        fieldset {
+            border: none;
+            padding: 0;
+        }
+        .preferredName {
+            display: none;
+        }
     </style>
 </head>
 <body>
     <header style="background-color: #009688; color: #ffffff; text-align: center; padding: 10px;">
         <h1>Student Library Card Registration</h1>
     </header>
-    
+
     <div class="container">
         <form id="registrationForm" onsubmit="submitForm(event)">
             <fieldset>
@@ -41,24 +52,30 @@
                 <label>Middle Name: <input type="text" name="middleName"></label>
                 <label>Last Name:* <input required type="text" name="lastName"></label>
                 <label>Is this your dead name?
-                    <input type="radio" id="yes" name="deadname" value="yes"> Yes
-                    <input type="radio" id="no" name="deadname" value="no"> No
+                    <input type="radio" id="yes" name="deadname" value="yes" onclick="togglePreferredName(true)"> Yes
+                    <input type="radio" id="no" name="deadname" value="no" onclick="togglePreferredName(false)" checked> No
                 </label>
-                <div id="preferredNameSection"></div>
+                <div id="preferredNameSection" class="preferredName">
+                    <p>Please indicate the name that should appear on your account and be used for email/text notifications.</p>
+                    <label>First Name: <input type="text" name="preferredFirstName"></label>
+                    <label>Middle Name: <input type="text" name="preferredMiddleName"></label>
+                    <label>Last Name: <input type="text" name="preferredLastName"></label>
+                    <label><input type="checkbox" name="useIdNameForNotifications"> Please check this box if you wish to have your ID name used for print and phone notifications.</label>
+                </div>
                 <label>Date of Birth:* <input required type="date" name="dateOfBirth"></label>
             </fieldset>
-            
+
             <div class="divider"></div>
-            
+
             <fieldset>
                 <legend>Parent Details</legend>
                 <label>Parent First Name:* <input required type="text" name="parentFirstName"></label>
                 <label>Parent Middle Name: <input type="text" name="parentMiddleName"></label>
                 <label>Parent Last Name:* <input required type="text" name="parentLastName"></label>
             </fieldset>
-            
+
             <div class="divider"></div>
-            
+
             <fieldset>
                 <legend>Address</legend>
                 <label>Street:* <input required type="text" name="street"></label>
@@ -66,22 +83,22 @@
                 <label>State:* <input required type="text" name="state"></label>
                 <label>Zip Code:* <input required type="text" name="zip"></label>
             </fieldset>
-            
+
             <div class="divider"></div>
-            
+
             <fieldset>
                 <legend>Teacher and School Information</legend>
                 <label>Teacher Name:* <input required type="text" name="teacherName"></label>
                 <label>School:* <input required type="text" name="school"></label>
                 <label>Grade Level:* <input required type="text" name="gradeLevel"></label>
             </fieldset>
-            
+
             <div class="divider"></div>
-            
+
             <fieldset>
                 <legend>Contact</legend>
                 <label>
-                    Contact Method:* 
+                    Contact Method:*
                     <select required name="contactMethod">
                         <option value="email">Email</option>
                         <option value="text">Text Message</option>
@@ -89,21 +106,21 @@
                 </label>
                 <label>Contact Details:* <input required type="text" name="contactDetails"></label>
             </fieldset>
-            
+
             <div class="divider"></div>
-            
+
             <fieldset>
                 <legend>Card Pickup</legend>
                 <label><input type="radio" required name="cardPickup" value="classVisit"> This card will be picked up during a class visit</label>
                 <label><input type="radio" name="cardPickup" value="mail"> I need this card mailed to me</label>
             </fieldset>
-            
+
             <div class="divider"></div>
-            
+
             <input type="submit" value="Submit">
             <input type="reset" value="Clear All">
         </form>
-        
+
         <div class="confidentiality">
             Your confidentiality is our priority. We take all necessary measures to protect your personal information.
         </div>
@@ -111,8 +128,12 @@
             By submitting this form, you agree to our <a href="https://www.rplmn.org/services/library-card-borrowing/privacy" target="_blank">Privacy Policy</a>.
         </div>
     </div>
-    
+
     <script>
+        function togglePreferredName(show) {
+            document.getElementById('preferredNameSection').style.display = show ? 'block' : 'none';
+        }
+
         document.getElementById('registrationForm').addEventListener('submit', function (e) {
             e.preventDefault();
             // Process the form data and update the "database" 
