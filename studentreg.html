@@ -10,7 +10,7 @@
         }
 
         #container {
-            width: 70%;
+            width: 50%;
             margin: auto;
         }
 
@@ -36,27 +36,12 @@
 
         label, input, select {
             margin-bottom: 15px;
-        }
-
-        .inline {
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .inline > div {
-            width: 45%;
-        }
-
-        .inline label {
             display: block;
-        }
-
-        .inline input {
-            width: 100%;
         }
 
         .radio-label {
             margin-right: 20px;
+            display: inline-block;
         }
 
         table {
@@ -84,33 +69,12 @@
         <div class="formContainer">
             <h1>Student Library Card Registration</h1>
             <form onsubmit="addStudent(event, this)">
-                <div class="inline">
-                    <div>
-                        <label>First Name: <input required type="text" name="firstName"></label>
-                        <label>Middle Name: <input type="text" name="middleName"></label>
-                        <label>Last Name: <input required type="text" name="lastName"></label>
-                        <label>Date of Birth: <input required type="date" name="dob"></label>
-                    </div>
-                    <div>
-                        <label>Parent First Name: <input required type="text" name="parentFirstName"></label>
-                        <label>Parent Middle Name: <input type="text" name="parentMiddleName"></label>
-                        <label>Parent Last Name: <input required type="text" name="parentLastName"></label>
-                    </div>
-                </div>
-                <label>Street: <input required type="text" name="street"></label>
-                <div class="inline">
-                    <div>
-                        <label>State: <input required type="text" name="state"></label>
-                    </div>
-                    <div>
-                        <label>Zip: <input required type="text" name="zip"></label>
-                    </div>
-                </div>
+                <label>First Name: <input required type="text" name="firstName"></label>
+                <label>Middle Name: <input type="text" name="middleName"></label>
+                <label>Last Name: <input required type="text" name="lastName"></label>
                 <p class="explanation">Preferred Name: "Is this your dead name?"</p>
-                <div class="inline">
-                    <label class="radio-label">Yes<input type="radio" name="deadname" value="yes" onclick="showPreferredName()"></label>
-                    <label>No<input type="radio" name="deadname" value="no" checked onclick="hidePreferredName()"></label>
-                </div>
+                <label class="radio-label">Yes<input type="radio" name="deadname" value="yes" onclick="showPreferredName()"></label>
+                <label class="radio-label">No<input type="radio" name="deadname" value="no" checked onclick="hidePreferredName()"></label>
                 <div id="preferredName" style="display:none;">
                     <p>Please indicate the name that should appear on your account and be used for email/text notifications.</p>
                     <label>First Name: <input type="text" name="preferredFirstName"></label>
@@ -118,6 +82,13 @@
                     <label>Last Name: <input type="text" name="preferredLastName"></label>
                     <input type="checkbox" name="useIDName"> Please check this box if you wish to have your ID name used for print and phone notifications.<br>
                 </div>
+                <label>Date of Birth: <input required type="date" name="dob"></label>
+                <label>Parent First Name: <input required type="text" name="parentFirstName"></label>
+                <label>Parent Middle Name: <input type="text" name="parentMiddleName"></label>
+                <label>Parent Last Name: <input required type="text" name="parentLastName"></label>
+                <label>Street: <input required type="text" name="street"></label>
+                <label>State: <input required type="text" name="state"></label>
+                <label>Zip: <input required type="text" name="zip"></label>
                 <label>Teacher Name: <input required type="text" name="teacherName"></label>
                 <label>School: <input required type="text" name="school"></label>
                 <label>Grade Level: <input required type="text" name="gradeLevel"></label>
@@ -129,6 +100,8 @@
                     </select>
                     <label id="contactLabel">Email: <input required type="text" name="contact"></label>
                 </div>
+                <label class="radio-label">This card will be picked up during a class visit<input type="radio" name="cardReceiveOption" value="pickUp" checked></label>
+                <label class="radio-label">I need this card mailed to me<input type="radio" name="cardReceiveOption" value="mail"></label>
                 <input type="submit" value="Submit">
             </form>
         </div>
