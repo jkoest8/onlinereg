@@ -28,6 +28,13 @@
             text-align: center;
         }
 
+        .section {
+            border: 1px solid #b2ebf2;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+
         .explanation {
             font-size: 0.9em;
             color: #555;
@@ -69,30 +76,40 @@
         <div class="formContainer">
             <h1>Student Library Card Registration</h1>
             <form onsubmit="addStudent(event, this)">
-                <label>First Name: <input required type="text" name="firstName"></label>
-                <label>Middle Name: <input type="text" name="middleName"></label>
-                <label>Last Name: <input required type="text" name="lastName"></label>
-                <p class="explanation">Preferred Name: "Is this your dead name?"</p>
-                <label class="radio-label">Yes<input type="radio" name="deadname" value="yes" onclick="showPreferredName()"></label>
-                <label class="radio-label">No<input type="radio" name="deadname" value="no" checked onclick="hidePreferredName()"></label>
-                <div id="preferredName" style="display:none;">
+                <div class="section">
+                    <label>First Name: <input required type="text" name="firstName"></label>
+                    <label>Middle Name: <input type="text" name="middleName"></label>
+                    <label>Last Name: <input required type="text" name="lastName"></label>
+                    <p class="explanation">Is this your dead name?</p>
+                    <label class="radio-label">Yes<input type="radio" name="deadname" value="yes" onclick="showPreferredName()"></label>
+                    <label class="radio-label">No<input type="radio" name="deadname" value="no" checked onclick="hidePreferredName()"></label>
+                </div>
+                <div class="section" id="preferredName" style="display:none;">
                     <p>Please indicate the name that should appear on your account and be used for email/text notifications.</p>
                     <label>First Name: <input type="text" name="preferredFirstName"></label>
                     <label>Middle Name: <input type="text" name="preferredMiddleName"></label>
                     <label>Last Name: <input type="text" name="preferredLastName"></label>
                     <input type="checkbox" name="useIDName"> Please check this box if you wish to have your ID name used for print and phone notifications.<br>
                 </div>
-                <label>Date of Birth: <input required type="date" name="dob"></label>
-                <label>Parent First Name: <input required type="text" name="parentFirstName"></label>
-                <label>Parent Middle Name: <input type="text" name="parentMiddleName"></label>
-                <label>Parent Last Name: <input required type="text" name="parentLastName"></label>
-                <label>Street: <input required type="text" name="street"></label>
-                <label>State: <input required type="text" name="state"></label>
-                <label>Zip: <input required type="text" name="zip"></label>
-                <label>Teacher Name: <input required type="text" name="teacherName"></label>
-                <label>School: <input required type="text" name="school"></label>
-                <label>Grade Level: <input required type="text" name="gradeLevel"></label>
-                <div id="contactOption">
+                <div class="section">
+                    <label>Date of Birth: <input required type="date" name="dob"></label>
+                </div>
+                <div class="section">
+                    <label>Parent First Name: <input required type="text" name="parentFirstName"></label>
+                    <label>Parent Middle Name: <input type="text" name="parentMiddleName"></label>
+                    <label>Parent Last Name: <input required type="text" name="parentLastName"></label>
+                </div>
+                <div class="section">
+                    <label>Street: <input required type="text" name="street"></label>
+                    <label>State: <input required type="text" name="state"></label>
+                    <label>Zip: <input required type="text" name="zip"></label>
+                </div>
+                <div class="section">
+                    <label>Teacher Name: <input required type="text" name="teacherName"></label>
+                    <label>School: <input required type="text" name="school"></label>
+                    <label>Grade Level: <input required type="text" name="gradeLevel"></label>
+                </div>
+                <div class="section" id="contactOption">
                     <label>Contact Option:</label>
                     <select name="contactOption" onchange="showContactField(this.value)">
                         <option value="email">Email</option>
@@ -100,8 +117,8 @@
                     </select>
                     <label id="contactLabel">Email: <input required type="text" name="contact"></label>
                 </div>
-                <label class="radio-label">This card will be picked up during a class visit<input type="radio" name="cardReceiveOption" value="pickUp" checked></label>
-                <label class="radio-label">I need this card mailed to me<input type="radio" name="cardReceiveOption" value="mail"></label>
+                <label><input required type="radio" name="cardReceiveOption" value="class visit"> This card will be picked up during a class visit</label><br>
+                <label><input required type="radio" name="cardReceiveOption" value="mail"> I need this card mailed to me</label>
                 <input type="submit" value="Submit">
             </form>
         </div>
