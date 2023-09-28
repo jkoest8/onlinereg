@@ -2,185 +2,158 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Student Registration Form</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Library Card Registration</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
+            background-color: #e0f2f1;
+        }
+        .container {
             background-color: #e0f7fa;
-        }
-
-        #container {
-            width: 50%;
-            margin: auto;
-        }
-
-        .formContainer {
-            background: #ffffff;
             padding: 20px;
-            margin-bottom: 20px;
+            margin: auto;
             border: 1px solid #b2ebf2;
-            border-radius: 5px;
-            box-shadow: 0px 0px 10px 0px #80deea;
+            border-radius: 8px;
+            width: 50%; /* Controls the width of the form */
         }
-
-        h1 {
+        .divider {
+            border-bottom: 1px solid #00796b;
+            margin: 20px 0;
+        }
+        .confidentiality, .terms {
+            font-size: 0.8em;
+        }
+        .terms a {
             color: #00796b;
-            text-align: center;
+            text-decoration: none;
         }
-
-        .section {
-            border: 1px solid #b2ebf2;
-            padding: 10px;
-            margin-bottom: 20px;
-            border-radius: 5px;
-        }
-
-        .explanation {
-            font-size: 0.9em;
-            color: #555;
-            margin-bottom: 10px;
-        }
-
-        label, input, select {
-            margin-bottom: 15px;
+        label, select, input[type="text"], input[type="date"], input[type="email"], input[type="tel"] {
             display: block;
+            margin-bottom: 10px;
+            width: 90%; /* Adjust the width of the input fields */
+            box-sizing: border-box;
         }
-
-        .radio-label {
-            margin-right: 20px;
-            display: inline-block;
+        fieldset {
+            border: none;
+            padding: 0;
+            margin-bottom: 20px;
+            position: relative;
         }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
+        legend {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 10px; /* Space between legend and the rest of the box */
         }
-
-        th, td {
-            border: 1px solid #d0d0d0;
-            padding: 10px;
-            text-align: left;
-        }
-
-        th {
-            background-color: #b2ebf2;
-        }
-
-        #contactOption {
-            margin-bottom: 15px;
+        .preferredName, .phoneInput {
+            display: none;
         }
     </style>
 </head>
 <body>
-    <div id="container">
-        <div class="formContainer">
-            <h1>Student Library Card Registration</h1>
-            <form onsubmit="addStudent(event, this)">
-                <div class="section">
-                    <label>First Name: <input required type="text" name="firstName"></label>
-                    <label>Middle Name: <input type="text" name="middleName"></label>
-                    <label>Last Name: <input required type="text" name="lastName"></label>
-                    <p class="explanation">Is this your dead name?</p>
-                    <label class="radio-label">Yes<input type="radio" name="deadname" value="yes" onclick="showPreferredName()"></label>
-                    <label class="radio-label">No<input type="radio" name="deadname" value="no" checked onclick="hidePreferredName()"></label>
-                </div>
-                <div class="section" id="preferredName" style="display:none;">
+    <header style="background-color: #009688; color: #ffffff; text-align: center; padding: 10px;">
+        <h1>Student Library Card Registration</h1>
+    </header>
+    <div class="container">
+        <form onsubmit="submitForm(event, this)">
+            <fieldset>
+                <legend>Student Information</legend>
+                <label>First Name: <input required type="text"></label>
+                <label>Middle Name: <input type="text"></label>
+                <label>Last Name: <input required type="text"></label>
+                <label>Is this your dead name?
+                    <label><input type="radio" name="deadname" value="no" checked onclick="togglePreferredName(false)"> No</label>
+                    <label><input type="radio" name="deadname" value="yes" onclick="togglePreferredName(true)"> Yes</label>
+                </label>
+                <div class="preferredName">
                     <p>Please indicate the name that should appear on your account and be used for email/text notifications.</p>
-                    <label>First Name: <input type="text" name="preferredFirstName"></label>
-                    <label>Middle Name: <input type="text" name="preferredMiddleName"></label>
-                    <label>Last Name: <input type="text" name="preferredLastName"></label>
-                    <input type="checkbox" name="useIDName"> Please check this box if you wish to have your ID name used for print and phone notifications.<br>
+                    <label>First Name: <input type="text"></label>
+                    <label>Middle Name: <input type="text"></label>
+                    <label>Last Name: <input type="text"></label>
+                    <label><input type="checkbox"> Please check this box if you wish to have your ID name used for print and phone notifications.</label>
                 </div>
-                <div class="section">
-                    <label>Date of Birth: <input required type="date" name="dob"></label>
-                </div>
-                <div class="section">
-                    <label>Parent First Name: <input required type="text" name="parentFirstName"></label>
-                    <label>Parent Middle Name: <input type="text" name="parentMiddleName"></label>
-                    <label>Parent Last Name: <input required type="text" name="parentLastName"></label>
-                </div>
-                <div class="section">
-                    <label>Street: <input required type="text" name="street"></label>
-                    <label>State: <input required type="text" name="state"></label>
-                    <label>Zip: <input required type="text" name="zip"></label>
-                </div>
-                <div class="section">
-                    <label>Teacher Name: <input required type="text" name="teacherName"></label>
-                    <label>School: <input required type="text" name="school"></label>
-                    <label>Grade Level: <input required type="text" name="gradeLevel"></label>
-                </div>
-                <div class="section" id="contactOption">
-                    <label>Contact Option:</label>
-                    <select name="contactOption" onchange="showContactField(this.value)">
+                <label>Date of Birth: <input required type="date"></label>
+            </fieldset>
+
+            <fieldset>
+                <legend>Parent/Guardian Information</legend>
+                <label>First Name: <input required type="text"></label>
+                <label>Middle Name: <input type="text"></label>
+                <label>Last Name: <input required type="text"></label>
+            </fieldset>
+
+            <fieldset>
+                <legend>Address</legend>
+                <label>Street: <input required type="text"></label>
+                <label>City: <input required type="text"></label>
+                <label>State: <input required type="text"></label>
+                <label>Zip: <input required type="text" pattern="\d{5}"></label>
+            </fieldset>
+
+            <fieldset>
+                <legend>School Information</legend>
+                <label>Teacher Name: <input required type="text"></label>
+                <label>School: <input required type="text"></label>
+                <label>Grade Level: <input required type="text"></label>
+            </fieldset>
+
+            <fieldset>
+                <legend>Contact Method</legend>
+                <label>Contact Method:
+                    <select required onchange="toggleContactMethod(this.value)">
+                        <option value="" disabled selected>Select a contact method</option>
                         <option value="email">Email</option>
-                        <option value="text">Text Message</option>
+                        <option value="phone">Phone</option>
                     </select>
-                    <label id="contactLabel">Email: <input required type="text" name="contact"></label>
-                </div>
-                <label><input required type="radio" name="cardReceiveOption" value="class visit"> This card will be picked up during a class visit</label><br>
-                <label><input required type="radio" name="cardReceiveOption" value="mail"> I need this card mailed to me</label>
-                <input type="submit" value="Submit">
-            </form>
-        </div>
-        <div class="formContainer" style="display:none;" id="databasePreview">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Student Name</th>
-                        <th>Parent Name</th>
-                        <th>Date of Birth</th>
-                        <th>Address</th>
-                        <th>Teacher Name</th>
-                        <th>School</th>
-                        <th>Grade Level</th>
-                        <th>Contact</th>
-                    </tr>
-                </thead>
-                <tbody id="databaseBody"></tbody>
-            </table>
-        </div>
+                </label>
+                <label class="emailInput">Email: <input required type="email"></label>
+                <label class="phoneInput">Phone: <input required type="tel" pattern="[\d-]+"></label>
+            </fieldset>
+
+            <fieldset>
+                <legend>Card Pickup</legend>
+                <label><input required type="radio" name="pickup" value="classVisit"> This card will be picked up during a class visit</label>
+                <label><input required type="radio" name="pickup" value="mail"> I need this card mailed to me</label>
+            </fieldset>
+
+            <div class="terms">
+                <label><input required type="checkbox"> I have read and agree to the <a href="https://www.rplmn.org/services/library-card-borrowing/privacy" target="_blank">terms and conditions</a></label>
+            </div>
+
+            <input type="submit" value="Submit">
+        </form>
+
+        <div class="divider"></div>
+
+        <div id="databasePreview"></div>
     </div>
+
     <script>
-        function showPreferredName() {
-            document.getElementById('preferredName').style.display = 'block';
+        function togglePreferredName(show) {
+            const preferredName = document.querySelector('.preferredName');
+            show ? preferredName.style.display = 'block' : preferredName.style.display = 'none';
         }
 
-        function hidePreferredName() {
-            document.getElementById('preferredName').style.display = 'none';
+        function toggleContactMethod(method) {
+            const emailInput = document.querySelector('.emailInput');
+            const phoneInput = document.querySelector('.phoneInput');
+            if(method === 'email') {
+                emailInput.style.display = 'block';
+                phoneInput.style.display = 'none';
+            } else {
+                phoneInput.style.display = 'block';
+                emailInput.style.display = 'none';
+            }
         }
 
-        function showContactField(value) {
-            let contactLabel = document.getElementById('contactLabel');
-            contactLabel.innerHTML = `${value === 'email' ? 'Email' : 'Phone Number'}: <input required type="text" name="contact">`;
-        }
-
-        function addStudent(event, form) {
+        function submitForm(event, form) {
             event.preventDefault();
-            let formData = new FormData(form);
-            let databasePreview = document.getElementById('databasePreview');
-            let databaseBody = document.getElementById('databaseBody');
-            
-            let row = document.createElement('tr');
-
-            let studentName = `${formData.get('firstName')} ${formData.get('middleName') || ''} ${formData.get('lastName')}`;
-            let parentName = `${formData.get('parentFirstName')} ${formData.get('parentMiddleName') || ''} ${formData.get('parentLastName')}`;
-            let dob = formData.get('dob');
-            let address = `${formData.get('street')}, ${formData.get('state')} ${formData.get('zip')}`;
-            let teacherName = formData.get('teacherName');
-            let school = formData.get('school');
-            let gradeLevel = formData.get('gradeLevel');
-            let contact = `${formData.get('contactOption') === 'email' ? 'Email' : 'Phone'}: ${formData.get('contact')}`;
-
-            [studentName, parentName, dob, address, teacherName, school, gradeLevel, contact].forEach(field => {
-                let td = document.createElement('td');
-                td.textContent = field || '-';
-                row.appendChild(td);
-            });
-
-            databaseBody.appendChild(row);
-            databasePreview.style.display = 'block';
-
-            form.reset();
+            const data = {};
+            for(let element of form.elements) {
+                if(element.type !== 'submit' && element.type !== 'fieldset' && element.name !== '') data[element.name] = element.value;
+            }
+            const preview = document.getElementById('databasePreview');
+            preview.textContent = JSON.stringify(data, null, 2);
         }
     </script>
 </body>
