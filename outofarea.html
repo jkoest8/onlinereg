@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration Form for Out-of-Area Patrons</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        #container {
+            width: 50%;
+            margin: auto;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px 0 rgba(0,0,0,0.1);
+        }
+        .form-section {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .left, .right {
+            width: 48%; /* Slightly less than 50% to leave room for the gap in the middle */
+        }
+        label, input, select {
+            display: block;
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px;
+            background-color: #50b3a2;
+            color: white;
+            cursor: pointer;
+            border: none;
+        }
+        button:hover {
+            background-color: #439881;
+        }
+        header {
+            background-color: #50b3a2;
+            color: #ffffff;
+            text-align: center;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+     <header>
+        <h1>Library eCard Registration for Out-of-Area Patrons</h1>
+    </header>
+    <div id="container">
+        <form>
+            <div class="form-section">
+                <fieldset>
+                    <legend>Legal Name</legend>
+                    <div class="left">
+                        <label for="firstName">First Name:*</label>
+                        <input type="text" id="firstName" name="firstName" required>
+                        <label for="middleName">Middle Name: </label>
+                        <input type="text" id="middleName" name="middleName">
+                        <label for="lastName">Last Name:* </label>
+                        <input type="text" id="lastName" name="lastName" required>
+                    </div>
+                </fieldset>
+                <div class="right">
+                    <label for="chosenName">Chosen Name: </label>
+                    <input type="text" id="chosenName" name="chosenName">
+                    <label for="dob">Date of Birth:*</label>
+                    <input type="date" id="dob" name="dob" required>
+                </div>
+            </div>
+            <div class="form-section">
+                <div class="left">
+                    <label for="streetAddress">Street Address:*</label>
+                    <input type="text" id="streetAddress" name="streetAddress" required>
+                    <label for="city">City:*</label>
+                    <input type="text" id="city" name="city" required>
+                    <label for="state">State:*</label>
+                    <input type="text" id="state" name="state" required>
+                    <label for="zipCode">ZIP Code:*</label>
+                    <input type="text" id="zipCode" name="zipCode" required>
+                </div>
+                <div class="right">
+                    <label for="notificationType">Preferred Notification Method:*</label>
+                    <select name="notificationType" id="notificationType" required onchange="toggleNotificationDetail()">
+                        <option value="">--Select One--</option>
+                        <option value="email">Email</option>
+                        <option value="text">Text</option>
+                    </select>
+                    <label for="notificationDetail">Enter Email/Phone Number:*</label>
+                    <input type="text" id="notificationDetail" name="notificationDetail" required placeholder="Enter your email or phone number">
+                </div>
+            </div>
+            <fieldset>
+                <legend>Payment Information ($30/year)</legend>
+                <label for="cardName">Name on Card:*</label>
+                <input type="text" id="cardName" name="cardName" required>
+                <label for="cardNumber">Card Number:*</label>
+                <input type="text" id="cardNumber" name="cardNumber" required>
+                <label for="expirationDate">Expiration Date (MM/YY):*</label>
+                <input type="text" id="expirationDate" name="expirationDate" required pattern="\d{2}/\d{2}">
+                <label for="cvc">CVC:* </label>
+                <input type="text" id="cvc" name="cvc" required>
+                <label><input type="checkbox" name="sameBillingAddress" value="yes"> Billing address is the same as residential address</label>
+            </fieldset>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        function toggleNotificationDetail() {
+            const notificationType = document.getElementById('notificationType').value;
+            const notificationDetail = document.getElementById('notificationDetail');
+
+            if (notificationType === 'email') {
+                notificationDetail.placeholder = 'Enter your email';
+                notificationDetail.type = 'email';
+            } else if (notificationType === 'text') {
+                notificationDetail.placeholder = 'Enter your phone number';
+                notificationDetail.type = 'tel';
+            } else {
+                notificationDetail.placeholder = 'Enter your email or phone number';
+                notificationDetail.type = 'text';
+            }
+        }
+    </script>
+</body>
+</html>
