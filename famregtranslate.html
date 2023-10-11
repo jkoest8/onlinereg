@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Family Registration Form</title>
+    <!-- ... Styles ... -->
+</head>
+<body>
+    <div id="container">
+        <div id="banner">Family Registration Form</div>
+        <button id="translateButton" onclick="translateForm()">Traducir al Español</button>
+        <div class="formContainer" id="mainForm">
+            <form onsubmit="addMember(event, this)">
+                <label><span class="firstNameLabel">First Name:*</span> <input required type="text" name="firstName"></label>
+                <label><span class="middleNameLabel">Middle Name:</span> <input type="text" name="middleName"></label>
+                <label><span class="lastNameLabel">Last Name:*</span> <input required type="text" name="lastName"></label>
+                <label><span class="dobLabel">Date of Birth:*</span> <input required type="date" name="dob"></label>
+                <label><span class="addressLabel">Street Address:*</span> <input required type="text" name="address"></label>
+                <label><span class="notificationMethodLabel">Notification Method:*</span>
+                    <select required name="notificationMethod" class="notificationMethodOptions">
+                        <option value="email">Email</option>
+                        <option value="text">Text</option>
+                    </select>
+                </label>
+                <label><span class="contactDetailLabel">Contact Detail:*</span> <input required type="text" name="contactDetail" placeholder="Email or Phone Number"></label>
+                <input type="checkbox" id="addFamilyMember" name="addFamilyMember"> <span class="additionalMemberLabel">I have another family member I'd like to register for a card.</span><br>
+                <input type="submit" value="Submit" class="submitButton">
+            </form>
+        </div>
+        <div id="additionalForms"></div>
+        <!-- ... Database Preview ... -->
+    </div>
+
+    <script>
+        let isEnglish = true;
+        function translateForm() {
+            if (isEnglish) {
+                document.getElementById('banner').textContent = 'Formulario de Registro Familiar';
+                document.getElementById('translateButton').textContent = 'Translate to English';
+                
+                document.querySelector('.firstNameLabel').textContent = 'Nombre:*';
+                document.querySelector('.middleNameLabel').textContent = 'Segundo Nombre:';
+                document.querySelector('.lastNameLabel').textContent = 'Apellido:*';
+                document.querySelector('.dobLabel').textContent = 'Fecha de Nacimiento:*';
+                document.querySelector('.addressLabel').textContent = 'Dirección:';
+                document.querySelector('.notificationMethodLabel').textContent = 'Método de Notificación:*';
+                document.querySelector('.contactDetailLabel').textContent = 'Detalle de Contacto:*';
+                document.querySelector('.additionalMemberLabel').textContent = 'Tengo otro miembro de la familia al que me gustaría registrar para obtener una tarjeta.';
+                document.querySelector('.notificationMethodOptions').options[0].textContent = 'Correo electrónico';
+                document.querySelector('.notificationMethodOptions').options[1].textContent = 'Texto';
+                document.querySelector('.submitButton').value = 'Enviar';
+            } else {
+                document.getElementById('banner').textContent = 'Family Registration Form';
+                document.getElementById('translateButton').textContent = 'Traducir al Español';
+
+                document.querySelector('.firstNameLabel').textContent = 'First Name:*';
+                document.querySelector('.middleNameLabel').textContent = 'Middle Name:';
+                document.querySelector('.lastNameLabel').textContent = 'Last Name:*';
+                document.querySelector('.dobLabel').textContent = 'Date of Birth:*';
+                document.querySelector('.addressLabel').textContent = 'Street Address:*';
+                document.querySelector('.notificationMethodLabel').textContent = 'Notification Method:*';
+                document.querySelector('.contactDetailLabel').textContent = 'Contact Detail:*';
+                document.querySelector('.additionalMemberLabel').textContent = 'I have another family member I\'d like to register for a card.';
+                document.querySelector('.notificationMethodOptions').options[0].textContent = 'Email';
+                document.querySelector('.notificationMethodOptions').options[1].textContent = 'Text';
+                document.querySelector('.submitButton').value = 'Submit';
+            }
+            isEnglish = !isEnglish;
+        }
+       let barcode = 43000;
+
+function addMember(event, form) {
+    event.preventDefault();
+
+    let formData = new FormData(form);
+    let tableBody = document.getElementById('tableBody');
+    let newRow = tableBody.insertRow();
+
+    newRow.insertCell(0).innerText = barcode;
+    newRow.insertCell(1).innerText = formData.get('firstName');
+    newRow.insertCell(2).innerText = formData.get('middleName');
+    newRow.insertCell(3).innerText = formData.get('lastName');
+    newRow.insertCell(4).innerText = formData.get('dob');
+    newRow.insertCell(5).innerText = formData.get('address');
+    newRow.insertCell(6).innerText = formData.get('notificationMethod');
+    newRow.insertCell(7).innerText = formData.get('contactDetail');
+
+    barcode++;
+
+    if (document.getElementById('addFamilyMember').checked) {
+        let clonedForm = form.cloneNode(true);
+
+        if (!isEnglish) {
+            // Switch cloned form to Spanish if the original form is in Spanish
+            translateToSpanish(clonedForm);
+        }
+
+        document.getElementById('additionalForms').appendChild(clonedForm);
+        clonedForm.querySelector('input[name="firstName"]').value = '';
+        clonedForm.querySelector('input[name="middleName"]').value = '';
+        clonedForm.querySelector('input[name="lastName"]').value = '';
+        clonedForm.querySelector('input[name="dob"]').value = '';
+        clonedForm.onsubmit = function(e) { addMember(e, this); }
+    }
+}
+
+function translateToSpanish(form) {
+    form.querySelector('.firstNameLabel').textContent = 'Nombre:*';
+    form.querySelector('.middleNameLabel').textContent = 'Segundo Nombre:';
+    form.querySelector('.lastNameLabel').textContent = 'Apellido:*';
+    form.querySelector('.dobLabel').textContent = 'Fecha de Nacimiento:*';
+    form.querySelector('.addressLabel').textContent = 'Dirección:';
+    form.querySelector('.notificationMethodLabel').textContent = 'Método de Notificación:*';
+    form.querySelector('.contactDetailLabel').textContent = 'Detalle de Contacto:*';
+    form.querySelector('.additionalMemberLabel').textContent = 'Tengo otro miembro de la familia al que me gustaría registrar para obtener una tarjeta.';
+    form.querySelector('.notificationMethodOptions').options[0].textContent = 'Correo electrónico';
+    form.querySelector('.notificationMethodOptions').options[1].textContent = 'Texto';
+    form.querySelector('.submitButton').value = 'Enviar';
+}
+
+    </script>
+</body>
+</html>
