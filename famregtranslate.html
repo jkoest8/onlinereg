@@ -54,11 +54,11 @@
     </style>
 </head>
 <body>
-    <div id="container">
+  <div id="container">
         <div id="banner">Family Registration Form</div>
-        <button id="translateButton" onclick="switchLanguage('spanish')">Traducir al Español</button>
+        <button onclick="switchLanguage('english')" id="translateEnglish">Translate to English</button>
+        <button onclick="switchLanguage('spanish')" id="translateSpanish">Traducir al Español</button>
         <button onclick="switchLanguage('somali')" id="translateSomali">Tarjumidda Soomaaliga</button>
-
         <div class="formContainer" id="mainForm">
             <form onsubmit="addMember(event, this)">
                 <label><span class="firstNameLabel">First Name:*</span> <input required type="text" name="firstName"></label>
@@ -98,36 +98,88 @@
         </div>    </div>
 
     <script>
-        let isEnglish = true;
         let currentLanguage = 'english';
 
-    function switchLanguage(lang) {
-        if (currentLanguage !== lang) {
-            if (lang === 'spanish') {
-                translateToSpanish(document.getElementById('mainForm'));
-                    currentLanguage = 'spanish';
-            } else if (lang === 'somali') {
-                translateToSomali(document.getElementById('mainForm'));
-                    currentLanguage = 'somali';
-            } else {
-            // Reset to English
-            location.reload(); // A simple way to revert back to the original state.
-        }
-    }
-}
- 
-        
-        
-            isEnglish = !isEnglish;
-        }
-       let barcode = 43000;
+        const translations = {
+            english: {
+                banner: 'Family Registration Form',
+                firstName: 'First Name:*',
+                middleName: 'Middle Name:',
+                lastName: 'Last Name:*',
+                dob: 'Date of Birth:*',
+                address: 'Street Address:*',
+                notificationMethod: 'Notification Method:*',
+                contactDetail: 'Contact Detail:*',
+                additionalMember: 'I have another family member I\'d like to register for a card.',
+                emailOption: 'Email',
+                textOption: 'Text',
+                submitButton: 'Submit'
+            },
+            spanish: {
+                banner: 'Formulario de Registro Familiar',
+                firstName: 'Nombre:*',
+                middleName: 'Segundo Nombre:',
+                lastName: 'Apellido:*',
+                dob: 'Fecha de Nacimiento:*',
+                address: 'Dirección:',
+                notificationMethod: 'Método de Notificación:*',
+                contactDetail: 'Detalle de Contacto:*',
+                additionalMember: 'Tengo otro miembro de la familia al que me gustaría registrar para obtener una tarjeta.',
+                emailOption: 'Correo electrónico',
+                textOption: 'Texto',
+                submitButton: 'Enviar'
+            },
+            somali: {
+                banner: 'Foomka Diwaangalinta Qoyska',
+                firstName: 'Magaca Koobaad:*',
+                middleName: 'Magaca Labaad:',
+                lastName: 'Magaca Dambe:*',
+                dob: 'Taariikhda Dhalashada:*',
+                address: 'Cinwaanka:',
+                notificationMethod: 'Habka Macluumaadka:*',
+                contactDetail: 'Faahfaahin La Xiriira:*',
+                additionalMember: 'Waxaan leeyahay xubin kale oo qoyska ah oo aan jeclahay inaan u diiwaan geliyo kaadhka.',
+                emailOption: 'Iimeel',
+                textOption: 'Tekst',
+                submitButton: 'Gudbin'
+            }
+        };
 
-function addMember(event, form) {
-    event.preventDefault();
+        function switchLanguage(lang) {
+            if (currentLanguage !== lang && lang in translations) {
+                applyTranslations(document.getElementById('mainForm'), translations[lang]);
+                currentLanguage = lang;
 
-    let formData = new FormData(form);
-    let tableBody = document.getElementById('tableBody');
-    let newRow = tableBody.insertRow();
+                // Also apply translations to any additional forms
+                const additionalForms = document.querySelectorAll('#additionalForms form');
+                additionalForms.forEach(form => {
+                    applyTranslations(form, translations[lang]);
+                });
+            }
+        }
+
+        function applyTranslations(form, translationSet) {
+            form.querySelector('.firstNameLabel').textContent = translationSet.firstName;
+            form.querySelector('.middleNameLabel').textContent = translationSet.middleName;
+            form.querySelector('.lastNameLabel').textContent = translationSet.lastName;
+            form.querySelector('.dobLabel').textContent = translationSet.dob;
+            form.querySelector('.addressLabel').textContent = translationSet.address;
+            form.querySelector('.notificationMethodLabel').textContent = translationSet.notificationMethod;
+            form.querySelector('.contactDetailLabel').textContent = translationSet.contactDetail;
+            form.querySelector('.additionalMemberLabel').textContent = translationSet.additionalMember;
+            form.querySelector('.notificationMethodOptions').options[0].textContent = translationSet.emailOption;
+            form.querySelector('.notificationMethodOptions').options[1].textContent = translationSet.textOption;
+            form.querySelector('.submitButton').value = translationSet.submitButton;
+        }
+
+        let barcode = 43000;
+
+        function addMember(event, form) {
+            event.preventDefault();
+
+            let formData = new FormData(form);
+            let tableBody = document.getElementById('tableBody');
+            let newRow = tableBody.insertRow();
 
     newRow.insertCell(0).innerText = barcode;
     newRow.insertCell(1).innerText = formData.get('firstName');
@@ -140,48 +192,16 @@ function addMember(event, form) {
 
     barcode++;
 
-    if (document.getElementById('addFamilyMember').checked) {
-        let clonedForm = form.cloneNode(true);
+     if (document.getElementById('addFamilyMember').checked) {
+                let clonedForm = form.cloneNode(true);
+                form.reset();
 
-        if (!isEnglish) {
-            // Switch cloned form to Spanish if the original form is in Spanish
-            translateToSpanish(clonedForm);
+                applyTranslations(clonedForm, translations[currentLanguage]);
+
+                document.getElementById('additionalForms').appendChild(clonedForm);
+                clonedForm.onsubmit = function(e) { addMember(e, this); }
+            }
         }
-
-        document.getElementById('additionalForms').appendChild(clonedForm);
-        clonedForm.querySelector('input[name="firstName"]').value = '';
-        clonedForm.querySelector('input[name="middleName"]').value = '';
-        clonedForm.querySelector('input[name="lastName"]').value = '';
-        clonedForm.querySelector('input[name="dob"]').value = '';
-        clonedForm.onsubmit = function(e) { addMember(e, this); }
-    }
-}
-    function translateToSomali(form) {
-        form.querySelector('.firstNameLabel').textContent = 'Magaca Koobaad:*';
-        form.querySelector('.middleNameLabel').textContent = 'Magaca Labaad:';
-        form.querySelector('.lastNameLabel').textContent = 'Magaca Dambe:*';
-        form.querySelector('.dobLabel').textContent = 'Taariikhda Dhalashada:*';
-        form.querySelector('.addressLabel').textContent = 'Cinwaanka:';
-        form.querySelector('.notificationMethodLabel').textContent = 'Habka Macluumaadka:*';
-        form.querySelector('.contactDetailLabel').textContent = 'Faahfaahin La Xiriira:*';
-        form.querySelector('.additionalMemberLabel').textContent = 'Waxaan leeyahay xubin kale oo qoyska ah oo aan jeclahay inaan u diiwaan geliyo kaadhka.';
-        form.querySelector('.notificationMethodOptions').options[0].textContent = 'Iimeel';
-        form.querySelector('.notificationMethodOptions').options[1].textContent = 'Tekst';
-        form.querySelector('.submitButton').value = 'Gudbin';
-    }
-function translateToSpanish(form) {
-    form.querySelector('.firstNameLabel').textContent = 'Nombre:*';
-    form.querySelector('.middleNameLabel').textContent = 'Segundo Nombre:';
-    form.querySelector('.lastNameLabel').textContent = 'Apellido:*';
-    form.querySelector('.dobLabel').textContent = 'Fecha de Nacimiento:*';
-    form.querySelector('.addressLabel').textContent = 'Dirección:';
-    form.querySelector('.notificationMethodLabel').textContent = 'Método de Notificación:*';
-    form.querySelector('.contactDetailLabel').textContent = 'Detalle de Contacto:*';
-    form.querySelector('.additionalMemberLabel').textContent = 'Tengo otro miembro de la familia al que me gustaría registrar para obtener una tarjeta.';
-    form.querySelector('.notificationMethodOptions').options[0].textContent = 'Correo electrónico';
-    form.querySelector('.notificationMethodOptions').options[1].textContent = 'Texto';
-    form.querySelector('.submitButton').value = 'Enviar';
-}
 
     </script>
 </body>
